@@ -24,10 +24,14 @@ celsify_temp <- function(dat) {
     dplyr::mutate(dat, temp = dplyr::if_else(english == "US", f_to_c(temp), temp))
 }
 
-now <- Sys.time()
-timestamp <- function(time) format(time, "%Y-%B-%d_%H-%M-%S")
-
 #' @export
 outfile_path <- function(infile) {
-    paste0(timestamp(now), "_", sub("(.*)([.]csv$)", "\\1_clean\\2", infile))
+    ts <- timestamp(Sys.time())
+    paste0(ts, "_", sub("(.*)([.]csv$)", "\\1_clean\\2", infile))
+}
+
+#' @export
+outfile_path0 <- function(infile, time = Sys.time()) {
+    ts <- timestamp(time)
+    paste0(ts, "_", sub("(.*)([.]csv$)", "\\1_clean\\2", infile))
 }
